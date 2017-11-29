@@ -17,12 +17,16 @@ RUN apk add --update --no-cache \
         libffi \
         openssl-dev \
         ca-certificates \
+        py2-psycopg2 \
     && apk add --update --no-cache --virtual build-deps \
         python-dev \
         build-base \
         libffi-dev \
         linux-headers \
-    && pip install --no-cache-dir --upgrade pip ara==${ARA_VERSION} \
+    && pip install --no-cache-dir --upgrade \
+        pip \
+        ara==${ARA_VERSION} \
+        pymysql \
     && apk del build-deps
 
 ENTRYPOINT [ "ara-manage", "runserver", "-h", "0.0.0.0", "-R" ]
